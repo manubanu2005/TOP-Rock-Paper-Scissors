@@ -1,10 +1,5 @@
 
 //computerchoice takes a random number from computern (from1-3) and turns it into a variable
-function capitalize (){
- let newString = string.substr(0,1).toUpperCase();
- let oldString = string.substr(1).toLowerCase();
-return newString + oldString;
-}
 function getComputerChoice(){
 const result = Math.floor(Math.random()* 3) +1;
 if(result === 1){
@@ -16,89 +11,108 @@ else if (result === 2){
 else if (result === 3){
     return'Scissors'
 }
-else {
- return 'not good'
 }
-}
+const div = document.querySelector("#gameplay");
+const buttonR = document.createElement("button");
+const buttonP = document.createElement("button");
+const buttonS = document.createElement("button");
 
+div.appendChild(buttonR);
+div.appendChild(buttonP);
+div.appendChild(buttonS);
 
-// the toUpperCase function makes the answer to become case-insensitive
-function getHumanChoice(){
-    const answer = prompt('Choose between rock, paper and scissors')
-const choice = answer.toUpperCase()
-if (choice === 'PAPER'){
-return 'Paper'
-}
-else if (choice === 'ROCK'){
-    return 'Rock'
-}
-else if (choice === 'SCISSORS'){
-    return 'Scissors'
-}
-};
+buttonR.addEventListener("click", () => {
+    const computerSelector = getComputerChoice()    
+    const humanSelector = "Rock"
+    playRound(humanSelector, computerSelector)
+});
+buttonP.addEventListener("click", () =>{
+    const computerSelector = getComputerChoice()    
+    const humanSelector = "Paper"
+    playRound(humanSelector, computerSelector)
+ 
+});
+buttonS.addEventListener("click", () => {
+    const computerSelector = getComputerChoice() 
+    const humanSelector = "Scissors"
+    playRound(humanSelector, computerSelector)
+});
 
+buttonR.textContent = "Rock"
+buttonP.textContent = "Paper"
+buttonS.textContent = "Scissors"
+
+const displaya = document.createElement("div")
+displaya.classList.add("display")
+
+const para = document.createElement("p")
+para.classList.add("para")
+
+const display = document.createElement('p')
+display.classList.add("displaya");
+
+const paraAB = document.createElement("p");
+paraAB.classList.add("paraAB");
+
+const paraWIN = document.createElement("p");
+paraWIN.classList.add("paraWIN");
 
 
 let humanScore = 0
 let computerScore = 0
 
+const name = prompt("Enter name:");
+
+
 function playRound(humanChoice, computerChoice){
-    console.log("Human:", humanChoice, "Computerc:", computerChoice)
+    para.textContent =`${name}:` + " " + humanChoice + " "+ " " + "Computer:" + " " + computerChoice;
 if ( humanChoice === 'Paper' && computerChoice === "Paper"){
-console.log("it's a tie")
+display.textContent = "it's a tie"
 }
 else if (humanChoice === "Paper" && computerChoice === "Rock"){
-console.log('Paper beats Rock')
-return ++humanScore
+display.textContent ='Paper beats Rock'
+++humanScore
 
 }
 else if (humanChoice === "Paper" && computerChoice === "Scissors"){
-    console.log('Scissors beats Paper')
-return ++computerScore
+    display.textContent ='Scissors beats Paper'
+ ++computerScore
 }
 else if (humanChoice === "Scissors" && computerChoice === "Paper"){
-    console.log('Scissors beats Paper')
-return ++humanScore
+    display.textContent ='Scissors beats Paper'
+ ++humanScore
 }
 else if (humanChoice === "Scissors" && computerChoice === "Rock"){
-    console.log('Rock beats Scissors')
- return ++computerScore
+   display.textContent ='Rock beats Scissors'
+  ++computerScore
 }
 else if (humanChoice === "Scissors" && computerChoice === "Scissors") {
-console.log("it's a tie")
+display.textContent ="it's a tie"
 }
 else if (humanChoice === "Rock" && computerChoice === "Paper"){
-  console.log('Paper beats Rock')
-return ++computerScore
+  display.textContent ='Paper beats Rock'
+ ++computerScore
 }
 else if (humanChoice === "Rock" && computerChoice === "Rock"){
-    console.log("it's a tie")
+display.textContent ="it's a tie"
 }
 else if (humanChoice === "Rock" && computerChoice === "Scissors"){
-        console.log('Rock beats Scissors')
-return ++humanScore
+display.textContent ='Rock beats Scissors'
+ ++humanScore
+};
+paraAB.textContent = `${name}:` +" "+ `${humanScore}` + " " + " "+"computer:" + " "+`${computerScore}`;
+
+if (humanScore === 5 && computerScore < 5 ){
+    paraWIN.textContent = "human wins";
 }
+else if (computerScore === 5 && humanScore < 5){
+    paraWIN.textContent = `${name}`+" wins"
 }
-const humanSelector = getHumanChoice()
-const computerSelector = getComputerChoice() 
-
-
-playRound(humanSelector, computerSelector)
-
-function playGame(){
-    console.log('Computer: '+ `${computerScore}`+ ' ' + 'Human:' + `${humanScore}` )
-    
-    if (computerScore === 5 && humanScore <= 4){
-    console.log('Cmputer wins!!!!')
-    }
-    else if (computerScore <= 4 && humanScore === 5){
-        console.log('Human wins!!!!!!')
-    }
 else {
-playGame(playRound(getHumanChoice(), computerSelector))
-
+};
 }
-}
-playGame()
-console.log(humanScore)
-console.log(computerScore)
+div.appendChild(displaya);
+displaya.appendChild(para);
+displaya.appendChild(display)
+displaya.appendChild(paraAB);
+displaya.appendChild(paraWIN);
